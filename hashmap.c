@@ -83,7 +83,19 @@ HashMap * createMap(long capacity) {
 }
 
 void eraseMap(HashMap * map,  char * key) {    
-
+    long indice = hash(key, map->capacity);
+    long original = indice;
+    while (map->buckets[indice] != NULL) {
+        if (map->buckets[indice]->key != NULL && is_equal(map->buckets[indice]->key, key)) {
+            map->buckets[indice] = NULL;
+            map->size--;
+            return;
+        }
+        indice = (indice + 1) % map->capacity;
+        if (indice == original) {
+            return;
+        }
+    }
 
 }
 
